@@ -1,13 +1,28 @@
+import { useEffect } from "react";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import useAppStore from "~/store/appStore";
+import useMoviesFetcher from "~/features/movies/hook/useMovies";
+const { fetchUpcomingMovies } = useMoviesFetcher();
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
     { name: "description", content: "Welcome to React Router!" },
   ];
 }
 
-export default function Home() {
-  return <Welcome />;
+export async function loader({}: Route.LoaderArgs) {
+  const upcomingMovies = await fetchUpcomingMovies();
+  return upcomingMovies;
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const setUpcomingMovies = useAppStore((state) => state.setUpcomingMovies);
+
+  useEffect(() => {
+    if (loaderData) {
+      setUpcomingMovies(loaderData);
+    }
+  }, [])
+  return <>hey</>;
 }
