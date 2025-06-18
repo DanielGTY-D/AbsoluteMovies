@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-export const upcomingMovieAPISchema = z.object({
+export const MovieResponseSchema = z.object({
   adult: z.boolean(),
   backdrop_path: z.string().nullable(),
   genre_ids: z.array(z.number()),
@@ -17,4 +17,4 @@ export const upcomingMovieAPISchema = z.object({
   vote_count: z.number(),
 })
 
-export const upcomingMoviesAPISchema = z.array(upcomingMovieAPISchema);
+export const MoviesResponseSchema = z.array(MovieResponseSchema);

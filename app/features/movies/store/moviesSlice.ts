@@ -1,16 +1,15 @@
 import type { StateCreator } from "zustand";
-import type { upcomingMoviesAPIResponse } from "../models/movies";
+import type { MoviesApiResponse } from "../models/movies.model";
 import useMoviesFetcher from "../hook/useMovies";
 
-
 export interface MoviesState {
-  upcomingMovies: upcomingMoviesAPIResponse;
-  setUpcomingMovies: (movies: upcomingMoviesAPIResponse) => void;
+	upcomingMovies: MoviesApiResponse;
+	setUpcomingMovies: (movies: MoviesApiResponse) => void;
 }
 
 export const createMoviesSlice: StateCreator<MoviesState> = (set, get) => ({
-  upcomingMovies: [],
-  setUpcomingMovies: (movies) => {
-    set({ upcomingMovies: movies });
-  }
-})
+	upcomingMovies: [],
+	setUpcomingMovies: (movies) => {
+		set({ upcomingMovies: movies });
+	},
+});
