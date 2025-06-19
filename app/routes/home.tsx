@@ -8,7 +8,7 @@ const { fetchUpcomingMovies } = useMoviesFetcher();
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "Absolute Movies" },
+    { title: "Absolute Movies - Home" },
     { name: "description", content: "Welcome to Absolute Movies, you can discover a new thinks to watch" },
   ];
 }
@@ -31,8 +31,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <Header />
 
       <main className="px-5">
-        <MoviesSection category="popular" classNext="nextPopular" classPrev="prevPopular" />
-        <MoviesSection category="now_playing" classNext="nextNow" classPrev="prevNow"/>
+        <MoviesSection category="popular" classNext="nextPopular" classPrev="prevPopular" type="swiper"/>
+        <MoviesSection category="now_playing" classNext="nextNow" classPrev="prevNow" type="swiper"/>
         <MoviesSection category="top_rated" classNext="nextTop" classPrev="prevTop"/>
       </main>
     </>

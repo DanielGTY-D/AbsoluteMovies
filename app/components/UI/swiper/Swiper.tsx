@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules"
 import 'swiper/css';
 import type { MoviesApiResponse, MovieApiResponse } from "~/features/movies/models/movies.model";
-import Card from "../section/Card";
+import Card from "../cards/Card";
 
 interface SwiperProps {
   movies: MoviesApiResponse;
@@ -52,7 +52,7 @@ function CustomSwiper({ movies, nextClassName, prevClassName }: SwiperProps) {
         {
           movies.map((movie: MovieApiResponse, index: number) => (
             <SwiperSlide key={movie.id}>
-              <Card data={movie} />
+              <Card data={movie} type="slide"/>
             </SwiperSlide>
           ))
         }
