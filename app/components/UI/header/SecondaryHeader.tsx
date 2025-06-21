@@ -15,7 +15,7 @@ const SecondaryHeader = () => {
           <div className="flex items-center gap-4">
             <i className="ri-film-fill text-6xl text-rose-50"></i>
             <Link to={`/`}>
-              <h1 className="text-6xl font-bold text-rose-50 capitalize">Absolute Movies</h1>
+              <h1 className="text-3xl xl:text-6xl font-bold text-rose-50 capitalize">Absolute Movies</h1>
             </Link>
           </div>
 
@@ -48,8 +48,8 @@ const SecondaryHeader = () => {
             </div>
 
             <div className='flex items-center gap-2'>
-              <Link className='text-rose-600 text-lg font-semibold' to={"/acount/log-in"}>log In</Link>
-              <Link className='text-rose-600 text-lg font-semibold' to={"/acount/sign-up"}>Sign Up</Link>
+              <Link className='text-rose-600 text-lg font-semibold text-nowrap' to={"/acount/log-in"}>log In</Link>
+              <Link className='text-rose-600 text-lg font-semibold text-nowrap' to={"/acount/sign-up"}>Sign Up</Link>
             </div>
 
             <Form className='' method='POST' action='/search'>

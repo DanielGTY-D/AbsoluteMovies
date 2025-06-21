@@ -2,7 +2,7 @@
 import type { Route } from "./+types/watchlist";
 import { useSubmit } from "react-router";
 import useMoviesFetcher from "~/features/movies/hook/useMovies";
-import SecondaryHeader from "~/components/UI/header/secondaryHeader";
+import SecondaryHeader from "~/components/UI/header/SecondaryHeader"; 
 import Card from "~/components/UI/cards/Card";
 import Pagination from "~/components/UI/pagination/Pagination";
 import 'remixicon/fonts/remixicon.css'
@@ -18,7 +18,8 @@ export function meta({ }: Route.MetaArgs) {
 export async function loader({ params }: Route.LoaderArgs) {
   const { query, page } = params;
   const { fetchMovies } = useMoviesFetcher();
-  const response = await fetchMovies(query, page);
+  const safePage = page ? parseInt(page) : 1;
+  const response = await fetchMovies(query, safePage);
   return response;
 }
 
@@ -26,11 +27,8 @@ const WatchList = ({ loaderData, params }: Route.ComponentProps) => {
   const { query, slug, page } = params;
   const title = query.replace("_", " ");
   const movies = loaderData.results;
+  const submit = useSubmit()
 
-
-  const getNewPage = () => {
-    const submit = useSubmit()
-  }
   return (
     <>
       <SecondaryHeader />
@@ -45,7 +43,7 @@ const WatchList = ({ loaderData, params }: Route.ComponentProps) => {
           }
         </ul>
 
-        <Pagination currentPage={loaderData.page} totalPages={loaderData.total_pages} onAction={getNewPage} />
+        <Pagination currentPage={loaderData.page} totalPages={loaderData.total_pages} query={query} slug={slug} />
       </main>
     </>
   );

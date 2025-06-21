@@ -1,23 +1,37 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import 'remixicon/fonts/remixicon.css'
-
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onAction: () => void;
+  slug: string;
+  query: string
 }
 
 
-const Pagination = ({ currentPage, totalPages, onAction }: PaginationProps) => {
+const Pagination = ({ currentPage, totalPages, onAction, query, slug }: PaginationProps) => {
+  const [page, setPage] = useState(currentPage);
+  const navigate = useNavigate();
+  
+  const handleNextPage = () => {
+    if(currentPage === totalPages) return; 
+    setPage(page + 1);
+    console.log(page);
+  }
 
-
-
+  const handlePrevPage = () => {
+    if(currentPage === 1) return;
+    setPage(page - 1);
+    console.log(page)
+  }
 
   return (
     <div className="flex items-center py-5 px-2.5 w-fit mx-auto gap-1">
       <div 
         className='flex flex-row-reverse border-2 cursor-pointer gap-2 text-lg border-rose-800 px-2.5 py-0.5 text-rose-800'
-        onClick={onAction}
+        onClick={handlePrevPage}
       >
         Previus
         <i className="ri-arrow-left-line"></i>
@@ -29,7 +43,7 @@ const Pagination = ({ currentPage, totalPages, onAction }: PaginationProps) => {
       </ul>
       <div 
         className='flex border-2 text-lg cursor-pointer gap-2 border-rose-800 px-2.5 py-0.5 text-rose-800'
-        onClick={onAction}
+        onClick={handleNextPage}
       >
         Next
         <i className="ri-arrow-right-line"></i>
