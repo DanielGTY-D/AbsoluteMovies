@@ -9,19 +9,11 @@ interface SwiperProps {
   movies: MoviesApiResponse;
   prevClassName: string;
   nextClassName: string;
+  slug: string
 }
 
-function CustomSwiper({ movies, nextClassName, prevClassName }: SwiperProps) {
+function CustomSwiper({ movies, nextClassName, prevClassName, slug }: SwiperProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const currentImage = `https://image.tmdb.org/t/p/original${movies[currentIndex]?.poster_path || ''}`;
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % movies.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + movies.length) % movies.length);
-  };
 
   return (
     <div style={{ position: "relative" }}>
@@ -52,13 +44,13 @@ function CustomSwiper({ movies, nextClassName, prevClassName }: SwiperProps) {
         {
           movies.map((movie: MovieApiResponse, index: number) => (
             <SwiperSlide key={movie.id}>
-              <Card data={movie} type="slide"/>
+              <Card data={movie} type="slide" slug={slug}/>
             </SwiperSlide>
           ))
         }
       </Swiper>
-      <button className={`${prevClassName} absolute z-30 left-2 top-[50%] bg-rose-800 p-2 rounded-full flex items-center justify-center`} aria-label="Anterior"><i className="ri-arrow-left-line text-white"></i></button>
-      <button className={`${nextClassName} absolute z-30 right-2 top-[50%] bg-rose-800 p-2 rounded-full flex items-center justify-center`} aria-label="Siguiente"><i className="ri-arrow-right-line text-white"></i></button>
+      <button className={`${prevClassName} absolute z-30 left-2 top-[50%] bg-white/20 backdrop-blur-md py-2 px-2.5 cursor-pointer rounded-full flex items-center justify-center`} aria-label="Anterior"><i className="ri-arrow-left-line text-rose-500 text-2xl"></i></button>
+      <button className={`${nextClassName} absolute z-30 right-2 top-[50%] bg-white/20 backdrop-blur-md py-2 px-2.5 cursor-pointer rounded-full flex items-center justify-center`} aria-label="Siguiente"><i className="ri-arrow-right-line text-rose-500 text-2xl"></i></button>
     </div>
   );
 };

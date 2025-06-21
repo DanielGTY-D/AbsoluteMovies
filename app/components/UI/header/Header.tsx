@@ -42,6 +42,7 @@ function Header() {
                 <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/listings"}>En Cartelera</Link></li>
                 <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/best-raiting"}>Mejor Valoradas</Link></li>
                 <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/premieres"}>Estrenos</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/premieres"}>Movies</Link></li>
               </ul>
             </div>
 
@@ -54,6 +55,7 @@ function Header() {
                 <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/series/popular"}>Populares</Link></li>
                 <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/series/on-airing"}>En Emision</Link></li>
                 <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/series/best-raiting"}>Mejor Valoradas</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/premieres"}>Series</Link></li>
               </ul>
             </div>
 

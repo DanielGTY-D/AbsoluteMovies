@@ -3,7 +3,8 @@ import type { Route } from "./+types/home";
 import useAppStore from "~/store/appStore";
 import useMoviesFetcher from "~/features/movies/hook/useMovies";
 import Header from "~/components/UI/header/Header";
-import MoviesSection from "~/features/movies/components/MoviesSection";
+import MoviesSection from "~/features/movies/components/moviesSection";
+import Footer from "~/components/UI/footer";
 const { fetchUpcomingMovies } = useMoviesFetcher();
 
 export function meta({ }: Route.MetaArgs) {
@@ -31,10 +32,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <Header />
 
       <main className="px-5">
-        <MoviesSection category="popular" classNext="nextPopular" classPrev="prevPopular" type="swiper"/>
-        <MoviesSection category="now_playing" classNext="nextNow" classPrev="prevNow" type="swiper"/>
-        <MoviesSection category="top_rated" classNext="nextTop" classPrev="prevTop"/>
+        <MoviesSection category="popular" classNext="nextPopular" classPrev="prevPopular" type="swiper" slug="movie"/>
+        <MoviesSection category="now_playing" classNext="nextNow" classPrev="prevNow" type="swiper" slug="movie"/>
+        <MoviesSection category="top_rated" classNext="nextTop" classPrev="prevTop" slug="movie"/>
       </main>
+
+      <Footer />
     </>
   );
 }
