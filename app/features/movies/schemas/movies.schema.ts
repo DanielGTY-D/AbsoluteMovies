@@ -18,3 +18,9 @@ export const MovieResponseSchema = z.object({
 })
 
 export const MoviesResponseSchema = z.array(MovieResponseSchema);
+
+export const MoviesResponseWithPaginationSchema = z.object({
+  results: MoviesResponseSchema,
+  total_pages: z.number(),
+  page: z.number(),
+})

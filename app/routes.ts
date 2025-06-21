@@ -5,7 +5,7 @@ import {
 	prefix,
 	route,
 } from "@react-router/dev/routes";
-import { Router } from "react-router";
+
 
 export default [
 	index("routes/home.tsx"),
@@ -14,7 +14,7 @@ export default [
 
 	...prefix("watchlist", [
 		layout("./layouts/MainLayout.tsx", [
-			route('/:category', 'routes/watchlist.tsx')
+			route('/:slug/:query/:page?', 'routes/watchlist.tsx')
 		]),
 	]),
 ] satisfies RouteConfig;

@@ -1,23 +1,27 @@
 import { moviesAPI } from "~/services/instanceAPI";
-import { MoviesResponseSchema } from "../schemas/movies.schema";
-import type { MoviesApiResponse } from "../models/movies.model";
+import {
+	MoviesResponseSchema,
+	MoviesResponseWithPaginationSchema,
+} from "../schemas/movies.schema";
+import type {
+	MoviesApiResponse,
+	MoviesApiResponseWithPagination,
+} from "../models/movies.model";
 
 const useMoviesFetcher = () => {
 	const fetchUpcomingMovies = async (): Promise<MoviesApiResponse> => {
 		try {
 			const response = await moviesAPI(`/upcoming`);
-			if (response.status !== 200) {
+
+			if (response.status === 200) {
+				const result = MoviesResponseSchema.safeParse(response.data.results);
+				if (result.success) {
+					return result.data;
+				}
 				console.error("Failed to fetch movies:", response.statusText);
 				return [] as MoviesApiResponse;
 			}
-
-			const result = MoviesResponseSchema.safeParse(response.data.results);
-			if (!result.success) {
-				console.error("Invalid data format:", result.error);
-				return [] as MoviesApiResponse;
-			}
-			return result.data;
-			// setUpcomingMovies(result.data.results);
+			console.error("Failed to fetch upcoming movies:", response.statusText);
 		} catch (error) {
 			console.log("Error fetching movies:", error);
 		}
@@ -26,24 +30,31 @@ const useMoviesFetcher = () => {
 	};
 
 	// fetch movies by category
-	const fetchMovies = async (category: MoviesSection["category"]) : Promise<MoviesApiResponse> => {
+	const fetchMovies = async (
+		category: string,
+		page?: number | undefined
+	): Promise<MoviesApiResponseWithPagination> => {
 		try {
-			const response = await moviesAPI(`/${category}`);
-			if (response.status !== 200) {
-				console.error("Failed to fetch movies by category:", response.statusText);
-				return [];
+			const response = await moviesAPI(`/${category}`, {
+				params: {
+					...(page !== undefined ? { page } : {})
+				},
+			});
+			if (response.status === 200) {
+				const result = MoviesResponseWithPaginationSchema.safeParse(
+					response.data
+				);
+				if (result.success) {
+					return result.data;
+				}
+				console.error("Failed to fetch movies:", response.statusText);
+				return {} as MoviesApiResponseWithPagination;
 			}
-			const result = MoviesResponseSchema.safeParse(response.data.results);
-			if (!result.success) {
-				console.error("Invalid data format for category:", result.error);
-				return [];
-			}
-			return result.data;
 		} catch (error) {
 			console.log("Error fetching movies by category:", error);
 		}
 
-		return [];
+		return {} as MoviesApiResponseWithPagination;
 	};
 
 	return {

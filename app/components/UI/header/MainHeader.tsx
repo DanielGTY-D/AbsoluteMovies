@@ -5,9 +5,9 @@ import { useState } from 'react';
 
 
 function Header() {
-  const [currentMovie, setCurrentMovie] = useState(0);
   const [showDropdownMovie, setShowDropdownMovie] = useState(false);
   const [showDropdownSerie, setShowDropdownSerie] = useState(false);
+  const [currentMovie, setCurrentMovie] = useState(0);
   const upcomingMovies = useAppStore(state => state.upcomingMovies);
   const imageBaseUrl = `https://image.tmdb.org/t/p/original${upcomingMovies[currentMovie]?.poster_path || ''}`;
 
@@ -29,7 +29,10 @@ function Header() {
       } */}
       <header className='container mx-auto xl:max-w-6xl z-50 relative bg-[rgba(0 0 0 0 / .2.5)] backdrop-blur-sm px-4 border-b-4 border-rose-600 rounded-b-2xl'>
         <div className='flex flex-col sm:flex-row items-center justify-between py-5'>
-          <h1 className='text-balance text-rose-600 font-bold text-2xl md:text-4xl'>Absolute Movies</h1>
+          <h1 className='text-balance text-rose-600 font-bold text-2xl md:text-4xl flex items-center gap-2'>
+            <i className="ri-film-fill text-4xl text-rose-600"></i>
+            Absolute Movies
+          </h1>
 
           <nav className='flex justify-center md:items-start flex-wrap gap-8 mt-5'>
             <div className='relative group'>

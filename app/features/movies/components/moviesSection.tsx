@@ -33,11 +33,11 @@ function MoviesSection({
   const setMoviesToState = async () => {
     try {
       const response = await fetchMovies(category);
-      if (response.length === 0) {
+      if (response.results.length === 0) {
         console.error("No movies found for category:", category);
         return;
       }
-      setMovies(response);
+      setMovies(response.results);
     } catch (error) {
       console.log("Error setting movies to state:", error);
     }
@@ -57,7 +57,7 @@ function MoviesSection({
             </h2>
 
             <Link
-              to={`watchlist/${category}`}
+              to={`watchlist/${slug}/${category}`}
               className="bg-rose-800 text-rose-100 rounded-lg text-base font-bold py-1 px-4 hover:bg-rose-600 transition-colors duration-500"
             >
               See More
@@ -82,7 +82,7 @@ function MoviesSection({
               </h2>
 
               <Link
-                to={`watchlist/${category}`}
+                to={`watchlist/${slug}/${category}`}
                 className="bg-rose-800 text-rose-100 rounded-lg text-base font-bold py-1 px-4 hover:bg-rose-600 transition-colors duration-500"
               >
                 See More

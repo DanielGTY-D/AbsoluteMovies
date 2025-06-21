@@ -1,5 +1,5 @@
 import { Outlet } from "react-router"
-import Header from "~/components/UI/header/Header";
+import Header from "~/components/UI/header/MainHeader";
 
 const MainLayout = () => {
   return (
