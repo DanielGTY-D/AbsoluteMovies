@@ -1,9 +1,11 @@
 import { Outlet } from "react-router"
-import Header from "~/components/UI/header/MainHeader";
+import SecondaryHeader from "~/components/UI/header/SecondaryHeader";
+
 
 const MainLayout = () => {
   return (
     <>
+      <SecondaryHeader />
       <Outlet />
     </>
   )

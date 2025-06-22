@@ -2,7 +2,7 @@
 import type { Route } from "./+types/watchlist";
 import { useSubmit } from "react-router";
 import useMoviesFetcher from "~/features/movies/hook/useMovies";
-import SecondaryHeader from "~/components/UI/header/SecondaryHeader"; 
+import SecondaryHeader from "~/components/UI/header/SecondaryHeader";
 import Card from "~/components/UI/cards/Card";
 import Pagination from "~/components/UI/pagination/Pagination";
 import 'remixicon/fonts/remixicon.css'
@@ -31,8 +31,6 @@ const WatchList = ({ loaderData, params }: Route.ComponentProps) => {
 
   return (
     <>
-      <SecondaryHeader />
-
       <main className="container mx-auto px-5 lg:max-w-6xl py-10">
         <h3 className="my-10 text-center text-rose-800 font-semibold text-4xl uppercase">{title}</h3>
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -5,7 +5,6 @@ import { Link } from "react-router";
 import useMoviesFetcher from "../hook/useMovies";
 import type { MoviesApiResponse } from "../models/movies.model";
 import CustomSwiper from "~/components/UI/swiper/Swiper";
-import { useInView } from "react-intersection-observer";
 import Card from "~/components/UI/cards/Card";
 
 interface MoviesSectionProps {
@@ -26,9 +25,6 @@ function MoviesSection({
   const [movies, setMovies] = useState<MoviesApiResponse>();
   const formateCategory = category.replace("_", " ");
   const { fetchMovies } = useMoviesFetcher();
-  const [ref, inView] = useInView({
-    threshold: 0.2,
-  });
 
   const setMoviesToState = async () => {
     try {
@@ -44,13 +40,12 @@ function MoviesSection({
   };
 
   useEffect(() => {
-    console.log(inView);
     setMoviesToState();
   }, []);
   return (
     <>
       {type === "swiper" ? (
-        <section className="container mx-auto my-20 lg:max-w-6xl" ref={ref}>
+        <section className="container mx-auto my-20 lg:max-w-6xl">
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-3xl capitalize text-rose-800 font-semibold">
               {formateCategory}
@@ -90,7 +85,7 @@ function MoviesSection({
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {movies?.map((movie) => (
-                <Card data={movie} type="horizontal" slug={slug}/>
+                <Card data={movie} type="horizontal" slug={slug} key={movie.id} />
               ))}
             </div>
           </section>

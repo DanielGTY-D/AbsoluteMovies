@@ -1,31 +1,32 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import 'remixicon/fonts/remixicon.css'
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onAction: () => void;
   slug: string;
   query: string
 }
 
 
-const Pagination = ({ currentPage, totalPages, onAction, query, slug }: PaginationProps) => {
+const Pagination = ({ currentPage, totalPages, query, slug }: PaginationProps) => {
   const [page, setPage] = useState(currentPage);
   const navigate = useNavigate();
   
   const handleNextPage = () => {
-    if(currentPage === totalPages) return; 
+    if(currentPage === totalPages) return;
     setPage(page + 1);
-    console.log(page);
   }
 
   const handlePrevPage = () => {
-    if(currentPage === 1) return;
+    if(page === 1) return;
     setPage(page - 1);
-    console.log(page)
   }
+
+  useEffect(() => {
+    navigate(`/watchlist/${slug}/${query}/${page}`)
+  }, [page])
 
   return (
     <div className="flex items-center py-5 px-2.5 w-fit mx-auto gap-1">

@@ -1,5 +1,5 @@
 import 'remixicon/fonts/remixicon.css'
-import { Form, Link } from 'react-router';
+import { Form, Link, Links } from 'react-router';
 import useAppStore from '~/store/appStore';
 import { useState } from 'react';
 
@@ -89,14 +89,14 @@ function Header() {
 
         {
           upcomingMovies.length > 0 && (
-            <div className='sm:w-1/3 relative z-20 px-5 mt-10 lg:mt-0'>
+            <Link to={`movie/${upcomingMovies[currentMovie].id}`} className='sm:w-1/3 relative z-20 px-5 mt-10 lg:mt-0'>
               <h3 className='text-rose-600 text-4xl font-semibold mt-2 w-fit'>{upcomingMovies[currentMovie].title}</h3>
               <p className='text-rose-100 text-base w-fit'><span className='text-rose-500 flex items-center'>Up coming in </span>{upcomingMovies[currentMovie].release_date} <i className="ri-calendar-line"></i></p>
               <p className='text-rose-100 text-base text-balance w-fit'>{upcomingMovies[currentMovie].overview.slice(0, 200) + "..."}</p>
               <p className='text-rose-100 text-base mt-2 w-fit flex items-center gap-1'><span className='text-rose-500'>Rating</span> {upcomingMovies[currentMovie].vote_average}<i className="ri-star-line"></i></p>
               <p className='text-rose-100 text-base w-fit flex items-center gap-1'><span className='text-rose-500'>Popularity</span> {upcomingMovies[currentMovie].popularity} <i className="ri-group-line"></i></p>
               <p className='text-rose-100 text-base w-fit'><span className='text-rose-500'>Language</span> {upcomingMovies[currentMovie].original_language}</p>
-            </div>
+            </Link>
           )
         }
       </div>

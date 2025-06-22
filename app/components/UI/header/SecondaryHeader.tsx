@@ -21,7 +21,7 @@ const SecondaryHeader = () => {
 
           <ul className="flex gap-4 items-center">
             <div className='relative group'>
-              <button className='cursor-pointer text-rose-600 flex items-center gap-2 text-lg font-semibold' onClick={() => setShowDropdownMovie(!showDropdownMovie)}>
+              <button className='cursor-pointer text-white flex items-center gap-2 text-lg font-semibold' onClick={() => setShowDropdownMovie(!showDropdownMovie)}>
                 Movies
                 <i className="ri-arrow-down-s-line"></i>
               </button>
@@ -35,7 +35,7 @@ const SecondaryHeader = () => {
             </div>
 
             <div className='relative group'>
-              <button className='text-rose-600 cursor-pointer flex items-center gap-2 text-lg font-semibold' onClick={() => setShowDropdownSerie(!showDropdownSerie)}>
+              <button className='text-white cursor-pointer flex items-center gap-2 text-lg font-semibold' onClick={() => setShowDropdownSerie(!showDropdownSerie)}>
                 Series
                 <i className="ri-arrow-down-s-line"></i>
               </button>
@@ -48,8 +48,8 @@ const SecondaryHeader = () => {
             </div>
 
             <div className='flex items-center gap-2'>
-              <Link className='text-rose-600 text-lg font-semibold text-nowrap' to={"/acount/log-in"}>log In</Link>
-              <Link className='text-rose-600 text-lg font-semibold text-nowrap' to={"/acount/sign-up"}>Sign Up</Link>
+              <Link className='text-white text-lg font-semibold text-nowrap' to={"/acount/log-in"}>log In</Link>
+              <Link className='text-white text-lg font-semibold text-nowrap' to={"/acount/sign-up"}>Sign Up</Link>
             </div>
 
             <Form className='' method='POST' action='/search'>
