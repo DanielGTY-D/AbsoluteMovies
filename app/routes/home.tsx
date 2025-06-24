@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import type { Route } from "./+types/home";
 import useAppStore from "~/store/appStore";
-import useMoviesFetcher from "~/features/movies/hook/useMovies";
-import Header from "~/components/UI/header/MainHeader";
+import useMoviesFetcher from "~/features/movies/hook/useApiFetcher";
+import {Footer, Header} from '../components/UI';
 import Movies from "~/features/movies/movies";
-import Footer from "~/components/UI/footer/footer";
+import Series from "../features/series/Series";
 const { fetchUpcomingMovies } = useMoviesFetcher();
 
 export function meta({ }: Route.MetaArgs) {
@@ -31,8 +31,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <>
       <Header />
 
-      <main className="px-5">
+      <main className="px-5 container mx-auto lg:max-w-6xl">
         <Movies />
+        <Series />
       </main>
 
       <Footer />

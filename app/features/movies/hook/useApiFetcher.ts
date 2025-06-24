@@ -13,7 +13,7 @@ import type {
 import type { VideosApiResponse } from "../models/videos.model";
 import { VideosResponseSchema } from "../schemas/videos.schema";
 
-const useMoviesFetcher = () => {
+const useApiFetcher = () => {
 	const fetchUpcomingMovies = async (): Promise<MoviesApiResponse> => {
 		try {
 			const response = await moviesAPI(`/upcoming`);
@@ -88,9 +88,12 @@ const useMoviesFetcher = () => {
 		return {} as MovieApiResponseWithSimilarContent;
 	};
 
-	const fetchVideosbyId = async (id: number, limit: number): Promise<VideosApiResponse> => {
+	const fetchVideosbyId = async (
+		id: number,
+		limit: number
+	): Promise<VideosApiResponse> => {
 		try {
-			const response = await moviesAPI(`/${id}/videos`, );
+			const response = await moviesAPI(`/${id}/videos`);
 			if (response.status === 200) {
 				const result = VideosResponseSchema.safeParse(response.data.results);
 				if (result.success) {
@@ -132,4 +135,4 @@ const useMoviesFetcher = () => {
 	};
 };
 
-export default useMoviesFetcher;
+export default useApiFetcher;

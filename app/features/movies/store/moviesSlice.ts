@@ -1,6 +1,5 @@
 import type { StateCreator } from "zustand";
 import type { MoviesApiResponse } from "../models/movies.model";
-import useMoviesFetcher from "../hook/useMovies";
 
 export interface MoviesState {
 	upcomingMovies: MoviesApiResponse;

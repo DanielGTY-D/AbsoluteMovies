@@ -1,12 +1,15 @@
 
 import type { Route } from "./+types/watchlist";
-import { useSubmit } from "react-router";
-import useMoviesFetcher from "~/features/movies/hook/useMovies";
-import SecondaryHeader from "~/components/UI/header/SecondaryHeader";
-import Card from "~/components/UI/cards/Card";
+import type { MoviesApiResponse } from "~/features/movies/models";
+import type { TvSeriesApiResponse } from "~/features/series/models";
 import Pagination from "~/components/UI/pagination/Pagination";
+import { MoviesCard } from "~/features/movies/components";
+import { SeriesCard } from "~/features/series/components";
+import movieFetcher from "../features/movies/hook/useApiFetcher";
+import tvFetcher from "../features/series/hooks/useApiFetcher";
+const { fetchMovies } = movieFetcher();
+const { fetchTvSeries } = tvFetcher();
 import 'remixicon/fonts/remixicon.css'
-
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -16,10 +19,9 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const { query, page } = params;
-  const { fetchMovies } = useMoviesFetcher();
+  const { query, page, slug } = params;
   const safePage = page ? parseInt(page) : 1;
-  const response = await fetchMovies(query, safePage);
+  const response = await slug === "movie" ? fetchMovies(query, safePage) : fetchTvSeries(query, safePage);
   return response;
 }
 
@@ -27,7 +29,6 @@ const WatchList = ({ loaderData, params }: Route.ComponentProps) => {
   const { query, slug, page } = params;
   const title = query.replace("_", " ");
   const movies = loaderData.results;
-  const submit = useSubmit()
 
   return (
     <>
@@ -35,9 +36,15 @@ const WatchList = ({ loaderData, params }: Route.ComponentProps) => {
         <h3 className="my-10 text-center text-rose-800 font-semibold text-4xl uppercase">{title}</h3>
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {
-            movies.map((movie) => (
-              <Card key={movie.id} data={movie} slug={slug} type="slide" />
+            slug === "movie" ? (
+              (movies as MoviesApiResponse).map((movie) => (
+              <MoviesCard key={movie.id} data={movie} slug={slug} type="slide" />
             ))
+            ) : (
+              (movies as TvSeriesApiResponse).map((serie) => (
+                <SeriesCard data={serie} slug={slug} type="slide"/>
+              ))
+            )
           }
         </ul>
 

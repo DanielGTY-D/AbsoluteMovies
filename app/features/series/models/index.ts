@@ -1,0 +1,1 @@
+export type {TvSerieApiResponse, TvSeriesApiResponse, TvSerieApiResponseWithNameGenre, TvSeriesApiResponseWithPagination} from './tvSeries.model';

@@ -1,0 +1,1 @@
+export {TvSerieResponseSchema, TvSeriesReseponseSchema, TvSerieResponseByIdSchema, TvSeriesResponseWithPaginationSchema } from './tvSeries.schema';

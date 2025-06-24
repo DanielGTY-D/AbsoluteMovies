@@ -1,13 +1,11 @@
-import SecondaryHeader from "~/components/UI/header/SecondaryHeader";
 import type { Route } from "./+types/movie";
-import useMoviesFetcher from "~/features/movies/hook/useMovies";
-import { Link } from "react-router";
-import VideosSection from "~/features/movies/components/VideosSection";
-import RelatedSection from "~/features/movies/components/RelatedSection";
+import useMoviesFetcher from "~/features/movies/hook/useApiFetcher";
+import SecondaryHeader from "~/components/UI/header/SecondaryHeader";
+import { VideosSection, RelatedSection } from '../features/movies/components';
+const { fetchMoviesById } = useMoviesFetcher();
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { id } = params;
-  const { fetchMoviesById } = useMoviesFetcher();
   const response = await fetchMoviesById(parseInt(id));
   return response;
 }
@@ -36,7 +34,6 @@ const Movie = ({ loaderData }: Route.ComponentProps) => {
             <div className="flex flex-wrap items-center gap-8 mt-4">
               <span className="text-rose-800 text-base">Año: <span className="text-gray-900 font-semibold">{movie.release_date?.slice(0, 4)}</span></span>
               <span className="text-rose-800 text-base">Rating: <span className="text-gray-900 font-semibold">{movie.vote_average}</span></span>
-              <span className="text-rose-800 text-base">Duración: <span className="text-gray-900 font-semibold">{movie.runtime} min</span></span>
             </div>
             <button
               className="mt-8 w-fit px-6 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold shadow transition-colors duration-200"
@@ -48,8 +45,8 @@ const Movie = ({ loaderData }: Route.ComponentProps) => {
           </div>
         </div>
       </main>
-      <VideosSection data={loaderData.videos}/>
-      <RelatedSection data={loaderData.similarMovies}/>
+      <VideosSection data={loaderData.videos} />
+      <RelatedSection data={loaderData.similarMovies} />
     </>
   );
 };

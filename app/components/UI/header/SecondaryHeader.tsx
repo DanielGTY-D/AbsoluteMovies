@@ -26,11 +26,10 @@ const SecondaryHeader = () => {
                 <i className="ri-arrow-down-s-line"></i>
               </button>
               <ul className={`absolute bg-rose-800 text-rose-100 rounded-lg overflow-hidden cursor-pointer transform group-hover:scale-100 ${showDropdownMovie ? "scale-100" : "scale-0"} transition-transform duration-500 ease-in-out md:delay-300`}>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/popular"}>Populares</Link></li>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/listings"}>En Cartelera</Link></li>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/best-raiting"}>Mejor Valoradas</Link></li>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/premieres"}>Estrenos</Link></li>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/premieres"}>Movies</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/watchlist/movie/popular"}>Populares</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/watchlist/movie/now_playing"}>En Cartelera</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/watchlist/movie/top_rated"}>Mejor Valoradas</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/watchlist/movie/upcoming"}>Estrenos</Link></li>
               </ul>
             </div>
 
@@ -40,10 +39,9 @@ const SecondaryHeader = () => {
                 <i className="ri-arrow-down-s-line"></i>
               </button>
               <ul className={`absolute bg-rose-800 text-rose-100 rounded-lg overflow-hidden cursor-pointer transform group-hover:scale-100 ${showDropdownSerie ? "scale-100" : "scale-0"} transition-transform duration-500 ease-in-out md:delay-300`}>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/series/popular"}>Populares</Link></li>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/series/on-airing"}>En Emision</Link></li>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/series/best-raiting"}>Mejor Valoradas</Link></li>
-                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/movies/premieres"}>Series</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/watchlist/tv/popular"}>Populares</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/watchlist/tv/on_the_air"}>En Emision</Link></li>
+                <li className='text-base text-nowrap p-2 hover:bg-rose-500 transition-colors duration-300'><Link to={"/watchlist/tv/top_rated"}>Mejor Valoradas</Link></li>
               </ul>
             </div>
 
