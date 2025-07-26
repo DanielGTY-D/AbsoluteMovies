@@ -10,7 +10,7 @@ const { fetchMovies } = movieFetcher();
 const { fetchTvSeries } = tvFetcher();
 import "remixicon/fonts/remixicon.css";
 
-export function meta({ }: Route.MetaArgs) {
+export function meta({}: Route.MetaArgs) {
   return [
     { title: "Absolute Movies - watchlist" },
     { name: "description", content: "watchlist for movies or tv series" },
@@ -28,7 +28,7 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 const WatchList = ({ loaderData, params }: Route.ComponentProps) => {
-  const { query, slug, page } = params;
+  const { query, slug } = params;
   const title = query.replace("_", " ");
   const movies = loaderData.results;
 
@@ -41,16 +41,16 @@ const WatchList = ({ loaderData, params }: Route.ComponentProps) => {
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {slug === "movie"
             ? (movies as MoviesApiResponse).map((movie) => (
-              <MoviesCard
-                key={movie.id}
-                data={movie}
-                slug={slug}
-                type="slide"
-              />
-            ))
+                <MoviesCard
+                  key={movie.id}
+                  data={movie}
+                  slug={slug}
+                  type="slide"
+                />
+              ))
             : (movies as TvSeriesApiResponse).map((serie) => (
-              <SeriesCard data={serie} slug={slug} type="slide" />
-            ))}
+                <SeriesCard data={serie} slug={slug} type="slide" />
+              ))}
         </ul>
 
         <Pagination
@@ -58,6 +58,7 @@ const WatchList = ({ loaderData, params }: Route.ComponentProps) => {
           totalPages={loaderData.total_pages}
           query={query}
           slug={slug}
+          action="watchlist"
         />
       </main>
     </>

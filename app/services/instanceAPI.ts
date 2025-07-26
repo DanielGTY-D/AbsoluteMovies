@@ -21,4 +21,8 @@ const InstanceAPI = axios.create({
   },
 });
 
-export { moviesAPI, seriesAPI, InstanceAPI };
+const api = axios.create({
+  baseURL: "http://localhost:4001/api",
+});
+
+export { moviesAPI, seriesAPI, InstanceAPI, api };
