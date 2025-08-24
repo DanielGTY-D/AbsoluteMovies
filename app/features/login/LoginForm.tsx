@@ -6,14 +6,12 @@ import ErrorMessage from "~/components/UI/ErrorMessage";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import useAppStore from "~/store/appStore";
+import Toaster from "~/components/UI/toaster/toaester";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const setUserInfo = useAppStore((state) => state.setUser);
-  const [formInfo, setFormInfo] = useState<{ message: string; type: string }>({
-    message: "",
-    type: "",
-  });
+  // const setUserInfo = useAppStore((state) => state.setUser);
+  const [alert, setAlert] = useState({ message: "", type: "" });
   const defaultValues = {
     email: "",
     password: "",
@@ -29,20 +27,20 @@ const LoginForm = () => {
     try {
       const { data } = await api.post("/auth/login", formData);
       localStorage.setItem("AUTH_TOKEN", data.token);
-      setUserInfo(data.user);
+      // setUserInfo(data.user);
+      localStorage.setItem("USER_INFO", JSON.stringify(data.user));
       navigate("/admin/profile");
     } catch (error) {
       if (isAxiosError(error) && error.response) {
-        setFormInfo({
-          message: error.response.data.error,
-          type: "error",
-        });
+        setAlert({ message: error.response.data.error, type: "error" });
+        // console.log(error.response.data);
       }
     }
   };
 
   return (
     <>
+      <Toaster message={alert.message} removeFn={setAlert} type={alert.type} />
       <form
         onSubmit={handleSubmit(handleLogin)}
         className="shadow-2xl bg-rose-100 rounded-xl lg:max-w-xl lg:mx-auto lg:flex lg:flex-col mt-30 p-4 gap-4"
@@ -92,17 +90,6 @@ const LoginForm = () => {
         </div>
 
         <div className="flex items-center justify-between mt-5">
-          {!Object.values(formInfo).includes("") && (
-            <p
-              className={`${
-                formInfo.type === "succes"
-                  ? "bg-lime-200 text-black text-lg border border-lime-800 rounded-lg py-1 px-2"
-                  : "bg-rose-200 text-black border border-rose-400 rounded-lg py-1 px-2"
-              }`}
-            >
-              {formInfo.message}
-            </p>
-          )}
           <input
             type="submit"
             value={"Iniciar Sesion"}

@@ -1,7 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { MoviesCard } from "~/features/movies/components";
-import useAppStore from "~/store/appStore";
 
 type ListToSeeLater = {
   adult: boolean;
@@ -20,18 +18,43 @@ type ListToSeeLater = {
   vote_count: number;
 };
 
+interface UserInfo {
+  email: string;
+  favoriteContent: string;
+  password: string;
+  username: string;
+  __v: 0;
+  _id: string;
+}
+
+interface FavoriteItem {
+  id: number;
+  name: string;
+  poster_path: string;
+  type: string;
+}
+
 const Profile = () => {
   const navigate = useNavigate();
-  const userInfo = useAppStore((state) => state.user);
+  const [userInfo, setUserInfo] = useState<UserInfo>();
 
-  const listToSeeLater: ListToSeeLater[] = JSON.parse(userInfo.animesFav);
+  const favoriteContent =
+    userInfo !== null && userInfo !== undefined
+      ? JSON.parse(userInfo?.favoriteContent || "[]")
+      : [];
 
   useEffect(() => {
     const token = localStorage.getItem("AUTH_TOKEN");
     if (!token) {
       navigate("/");
     }
+
+    const rawUser = localStorage.getItem("USER_INFO");
+    if (rawUser) {
+      setUserInfo(JSON.parse(rawUser));
+    }
   }, []);
+
   return (
     <>
       <header className="bg-rose-800 py-5 px-2.5">
@@ -56,20 +79,39 @@ const Profile = () => {
           />
         </div>
         <h2 className="text-2xl font-semibold">
-          Username: <span className="text-rose-800">{userInfo.username}</span>
+          Username:{" "}
+          <span className="text-rose-800">
+            {userInfo !== null ? userInfo?.username : ""}
+          </span>
         </h2>
       </div>
 
       <div className="border-t-3 pt-5 border-t-rose-600">
-        {listToSeeLater.length ? (
-          listToSeeLater.map((item) => (
-            <MoviesCard
-              data={item}
-              slug="movies"
-              type="horizontal"
-              key={item.id}
-            />
-          ))
+        <h2 className="text-3xl font-bold text-center mb-8 text-rose-800">
+          Tus favoritos
+        </h2>
+        {favoriteContent.length ? (
+          <div className="flex">
+            {favoriteContent.map((item: FavoriteItem) => (
+              <div className="container " key={item.id}>
+                <div className="">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                    alt={item.name}
+                    className="w-full md:w-[200px] h-[300px] rounded-lg object-cover shadow-xl border-4 border-rose-600 mx-auto"
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <h3 className="text-xl font-semibold text-rose-700">
+                    {item.name}
+                  </h3>
+                  <p className="text-rose-600">
+                    Tipo: {item.type === "movie" ? "Película" : "Serie"}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <p className="text-center font-semibold uppercase text-2xl text-rose-700">
             Comiena agregando tus titulos favoritos para no perderlos

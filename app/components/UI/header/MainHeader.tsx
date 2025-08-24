@@ -12,6 +12,7 @@ function Header() {
   const imageBaseUrl = `https://image.tmdb.org/t/p/original${
     upcomingMovies[currentMovie]?.poster_path || ""
   }`;
+  const isLogged = localStorage.getItem("AUTH_TOKEN");
 
   if (showDropdownMovie && showDropdownSerie) {
     setShowDropdownSerie(false);
@@ -96,18 +97,30 @@ function Header() {
             </div>
 
             <div className="flex items-center gap-2">
-              <Link
-                className="text-rose-600 text-lg font-semibold"
-                to={"/acount/log-in"}
-              >
-                log In
-              </Link>
-              <Link
-                className="text-rose-600 text-lg font-semibold"
-                to={"/acount/sign-up"}
-              >
-                Sign Up
-              </Link>
+              {isLogged ? (
+                <Link
+                  to={"/admin/profile"}
+                  className="text-rose-600 text-lg font-semibold flex items-center gap-2"
+                >
+                  <i className="ri-user-3-fill text-2xl text-rose-600"></i>
+                  Perfil
+                </Link>
+              ) : (
+                <div>
+                  <Link
+                    className="text-rose-600 text-lg font-semibold"
+                    to={"/auth/login"}
+                  >
+                    log In
+                  </Link>
+                  <Link
+                    className="text-rose-600 text-lg font-semibold"
+                    to={"/auth/register"}
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
 
             <Search />
