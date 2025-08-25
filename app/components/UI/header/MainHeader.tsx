@@ -1,24 +1,28 @@
 import "remixicon/fonts/remixicon.css";
-import { Form, Link, Links } from "react-router";
+import { Link } from "react-router";
 import useAppStore from "~/store/appStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "~/features/search/Search";
 
 function Header() {
   const [showDropdownMovie, setShowDropdownMovie] = useState(false);
   const [showDropdownSerie, setShowDropdownSerie] = useState(false);
   const [currentMovie, setCurrentMovie] = useState(0);
+  const [isLogged, setIsLogged] = useState(false);
   const upcomingMovies = useAppStore((state) => state.upcomingMovies);
   const imageBaseUrl = `https://image.tmdb.org/t/p/original${
     upcomingMovies[currentMovie]?.poster_path || ""
   }`;
-  const isLogged = localStorage.getItem("AUTH_TOKEN");
 
   if (showDropdownMovie && showDropdownSerie) {
     setShowDropdownSerie(false);
   } else if (showDropdownSerie && showDropdownMovie) {
     setShowDropdownMovie(false);
   }
+
+  useEffect(() => {
+    setIsLogged(!!localStorage.getItem("token"));
+  }, []);
 
   return (
     <div
