@@ -5,6 +5,7 @@ import SecondaryHeader from "~/components/UI/header/SecondaryHeader";
 import { VideosSection, RelatedSection } from "../features/movies/components";
 import useFavoriteContent from "~/hooks/useFavoriteContent";
 const { fetchMoviesById } = useMoviesFetcher();
+import Toaster from "~/components/UI/toaster/toaester";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { id } = params;
@@ -59,6 +60,12 @@ const Movie = ({ loaderData }: Route.ComponentProps) => {
   };
   return (
     <>
+      <Toaster
+        type={alert.type}
+        message={alert.message}
+        removeFn={setAlert}
+        outTime={7000}
+      />
       <SecondaryHeader />
       <main className="container mx-auto lg:max-w-6xl min-h-[80vh] flex items-center px-5 py-12 md:px-0">
         <div className="flex flex-col md:flex-row gap-12 w-full p-0 md:p-8">
@@ -116,4 +123,3 @@ const Movie = ({ loaderData }: Route.ComponentProps) => {
 };
 
 export default Movie;
-
