@@ -93,7 +93,7 @@ const Profile = () => {
         {favoriteContent.length ? (
           <div className="flex flex-wrap">
             {favoriteContent.map((item: FavoriteItem) => (
-              <div className="container" key={item.id}>
+              <div className="container basis-[200px]" key={item.id}>
                 <div className="">
                   <img
                     src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
