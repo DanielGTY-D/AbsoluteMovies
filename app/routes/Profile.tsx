@@ -91,9 +91,9 @@ const Profile = () => {
           Tus favoritos
         </h2>
         {favoriteContent.length ? (
-          <div className="flex">
+          <div className="flex flex-wrap">
             {favoriteContent.map((item: FavoriteItem) => (
-              <div className="container " key={item.id}>
+              <div className="container" key={item.id}>
                 <div className="">
                   <img
                     src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
