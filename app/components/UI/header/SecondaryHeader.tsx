@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Form } from "react-router";
 
 const SecondaryHeader = () => {
   const [showDropdownMovie, setShowDropdownMovie] = useState(false);
   const [showDropdownSerie, setShowDropdownSerie] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  const token = localStorage.getItem("AUTH_TOKEN");
 
+  useEffect(() => {
+    if (token) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  }, [token]);
   return (
     <>
       <header className="bg-rose-900 py-5 px-2.5">
@@ -73,18 +82,29 @@ const SecondaryHeader = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <Link
-                className="text-white text-lg font-semibold text-nowrap"
-                to={"/auth/login"}
-              >
-                log In
-              </Link>
-              <Link
-                className="text-white text-lg font-semibold text-nowrap"
-                to={"/auth/register"}
-              >
-                Sign Up
-              </Link>
+              {isLogged ? (
+                <Link
+                  to={"/admin/profile"}
+                  className="text-white text-lg font-semibold text-nowrap"
+                >
+                  Perfil
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    className="text-white text-lg font-semibold text-nowrap"
+                    to={"/auth/login"}
+                  >
+                    log In
+                  </Link>
+                  <Link
+                    className="text-white text-lg font-semibold text-nowrap"
+                    to={"/auth/register"}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
 
             <Form className="" method="POST" action="/search">
