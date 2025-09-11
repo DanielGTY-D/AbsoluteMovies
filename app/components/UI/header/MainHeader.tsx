@@ -21,7 +21,12 @@ function Header() {
   }
 
   useEffect(() => {
-    setIsLogged(!!localStorage.getItem("token"));
+    const token = localStorage.getItem("AUTH_TOKEN");
+    if (token) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
   }, []);
 
   return (
